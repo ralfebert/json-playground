@@ -20,18 +20,29 @@ struct Phone: Codable {
 
 // JSON aus Projektdatei parsen
 
-let jsonURL = Bundle.main.url(forResource: "persons", withExtension: "json")!
+if let jsonURL = Bundle.main.url(forResource: "persons", withExtension: "json") {
+    let jsonData = try Data(contentsOf: jsonURL)
+    let jsonDecoder = JSONDecoder()
+    let persons = try jsonDecoder.decode([Person].self, from: jsonData)
 
-let jsonData = try Data(contentsOf: jsonURL)
-
-let jsonDecoder = JSONDecoder()
-let persons = try jsonDecoder.decode([Person].self, from: jsonData)
-
-let person = persons.first!
-let name = person.name
+    let person = persons.first!
+    let name = person.name
+    print(name)
+}
 
 // JSON serialisieren
 
+let persons = [
+    Person(
+        name: "Bob",
+        age: 35,
+        phone: [
+            Phone(type: "mobile", number: "123")
+        ],
+        address: Address(street: "Some street", zip: "01234", city: "Fantasity")
+    )
+]
 let jsonEncoder = JSONEncoder()
 let jsonResultData = try jsonEncoder.encode(persons)
 let jsonResultString = String(data: jsonResultData, encoding: .utf8)
+
