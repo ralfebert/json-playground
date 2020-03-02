@@ -1,6 +1,7 @@
 import Foundation
 
-// MARK: - Person
+// MARK: - JSON-Typen konform zu Codable-Protokoll
+
 struct Person: Codable {
     let name: String
     let age: Int
@@ -8,12 +9,10 @@ struct Person: Codable {
     let address: Address?
 }
 
-// MARK: - Address
 struct Address: Codable {
     let street, zip, city: String
 }
 
-// MARK: - Phone
 struct Phone: Codable {
     let type, number: String
 }
