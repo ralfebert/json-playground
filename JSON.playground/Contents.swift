@@ -1,6 +1,6 @@
 import Foundation
 
-// MARK: - JSON-Typen konform zu Codable-Protokoll
+// MARK: - Declare JSON-Types conforming to the Codable
 
 struct Person: Codable {
     let name: String
@@ -17,7 +17,7 @@ struct Phone: Codable {
     let type, number: String
 }
 
-// JSON aus Projektdatei parsen
+// Parsing JSON from a project file
 
 if let jsonURL = Bundle.main.url(forResource: "persons", withExtension: "json") {
     let jsonData = try Data(contentsOf: jsonURL)
@@ -29,19 +29,18 @@ if let jsonURL = Bundle.main.url(forResource: "persons", withExtension: "json") 
     print(name)
 }
 
-// JSON serialisieren
+// Serializing JSON
 
 let persons = [
     Person(
         name: "Bob",
         age: 35,
         phone: [
-            Phone(type: "mobile", number: "123")
+            Phone(type: "mobile", number: "123"),
         ],
         address: Address(street: "Some street", zip: "01234", city: "Fantasity")
-    )
+    ),
 ]
 let jsonEncoder = JSONEncoder()
 let jsonResultData = try jsonEncoder.encode(persons)
 let jsonResultString = String(data: jsonResultData, encoding: .utf8)
-
